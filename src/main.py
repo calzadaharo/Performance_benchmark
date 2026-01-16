@@ -35,6 +35,7 @@ y = lf.select(target_column).collect().to_numpy().ravel()
 
 
 init_time = time.time()
+best_score = 0
 for i in range(100):
     model = RandomForestClassifier(
         n_estimators=1000,
@@ -42,8 +43,9 @@ for i in range(100):
         random_state=42,
         n_jobs=-1,
     )
-    model.cross_val_score(X, y, cv=5)
-    print(f"Model {i} trained")
+    score = cross_val_score(model, X, y, cv=5).mean()
+    best_score = max(best_score, score)
+    print(f"Model {i} trained with score {score}. Best score: {best_score}")
 end_time = time.time()
 print(f"Time taken training 100 models: {end_time - init_time} seconds")
 
