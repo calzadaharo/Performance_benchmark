@@ -43,6 +43,7 @@ for i in range(100):
         n_jobs=-1,
     )
     model.cross_val_score(X, y, cv=5)
+    print(f"Model {i} trained")
 end_time = time.time()
 print(f"Time taken training 100 models: {end_time - init_time} seconds")
 
